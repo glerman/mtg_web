@@ -1,0 +1,24 @@
+{
+  "name": "mtg_web",
+  "version": "0.0.1",
+  "description": "mtg_deck_optimizer",
+  "main": "get_packs.js",
+  "dependencies": {
+    "cheerio": "^0.19.0",
+    "require": "^2.4.20"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Drau/mtg_web.git"
+  },
+  "author": "MichaelR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Drau/mtg_web/issues"
+  },
+  "homepage": "https://github.com/Drau/mtg_web"
+}
