@@ -1,6 +1,7 @@
-var request = require('request');
+var request = require('request')
 var cheerio = require('cheerio')
 var Promise = require('promise')
+var fs = require('fs')
 
 function get_deck_links() {
 
@@ -54,11 +55,10 @@ function get_deck_cards(deck_links) {
 						var $ = cheerio.load(body);
 						card_links = $('.G14 div')
 						$(card_links).each(function(i, card){
-
+							//how many cards of this type are there is a deck
 							var amount = $(card).first().contents().filter(function() {
 								    return this.type === 'text';
 								}).text();
-
 				    		cards.push({
 				    			'amount': amount,
 				    			'name': $(card).children('span').text(),
@@ -66,7 +66,6 @@ function get_deck_cards(deck_links) {
 				    		})
 
 				  		})
-				  		console.log(cards)
 						resolve(cards)
 				  	}
 				  	else{
@@ -78,27 +77,17 @@ function get_deck_cards(deck_links) {
 	}
 	return Promise.all(promises)
 }
-
-
-
-
-
-
-
-
-
+var cards_database = JSON.parse(fs.readFileSync("./cards_database.json", 'utf8'))
+var decksdatabase = JSON.parse(fs.readFileSync("./decks_database.json", 'utf8'))
 
 
 get_deck_links()
 .then(function(decks){
 	var deck_links = [].concat.apply([], decks)
-	console.log(deck_links)
-	get_deck_cards(deck_links)
-}, function(){
-	console.log("An error occured in get_deck_links")
+	return get_deck_cards(deck_links)
 })
 .then(function(cards){
 	console.log(cards)
-}, function(){
-	console.log("An error occured in get_deck_cards")
 })
+
+
